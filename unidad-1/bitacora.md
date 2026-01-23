@@ -7,7 +7,7 @@
  Experimento 2
 <img width="793" height="300" alt="image" src="https://github.com/user-attachments/assets/6654a068-cc02-47cc-ae5a-f33ba8cf8c06" />
 
-Observaciones en los experimentos:
+#### Observaciones en los experimentos:
 
 El experimento 1 permite guardar sumar los valores de D y A, y guardar este resultado en un lugar dentro de la memoria RAM. Después de esto, el programa finaliza.
 El Experimento 2 es similar, simplemente cambiando la posición de guardado.
@@ -26,5 +26,6 @@ Por otro lado, los datos almacenados en Memoria RAM son datos temporales, variab
 
 
 ## Bitácora de reflexión
+
 
 
