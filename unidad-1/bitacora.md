@@ -24,9 +24,49 @@ Por otro lado, los datos almacenados en Memoria RAM son datos temporales, variab
 
 ## Bitácora de aplicación 
 
+```asm
+@12
+M=0
+
+@i
+M=1
+
+(LOOP)
+@i
+D=M
+@5
+D=D-A
+@END
+D;JGT
+
+@i
+D=M
+@12
+M=D+M
+
+@i
+M=M+1
+
+@LOOP
+0;JMP
+
+(END)
+@END
+0;JMP
+
+
+
+
+```
+
+
+<img width="967" height="808" alt="image" src="https://github.com/user-attachments/assets/c700872f-9c32-417c-946a-c0d37fc116ba" />
+
+
 
 
 ## Bitácora de reflexión
+
 
 
 
