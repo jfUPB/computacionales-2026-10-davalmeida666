@@ -19,6 +19,55 @@ Los datos almacenados en la memoria ROM, son, por decirlo así, más permanentes
 
 Por otro lado, los datos almacenados en Memoria RAM son datos temporales, variables, que siguiendo instrucciones de la Memoria ROM, se almacenan en una cierta posición, la cual puede cambiar, si el programa lo solicita.
 
+### Actividad 2
+
+``` program.asm
+@SCREEN
+D=A
+@i
+M=D
+(READKEYBOARD)
+@KBD
+D=M
+@KEYPRESSED
+D;JNE
+@i
+D=M
+@SCREEN
+D=D-A
+@READKEYBOARD
+D;JLE
+@i
+M=M-1
+A=M
+M=0
+@READKEYBOARD
+0;JMP
+
+(KEYPRESSED)
+@i
+D=M
+@KBD
+D=D-A
+@READKEYBOARD
+D;JGE
+@16
+A=M
+M=-1
+@i
+M=M+1
+@READKEYBOARD
+0;JMP
+```
+#### Experimento:
+<img width="1321" height="618" alt="image" src="https://github.com/user-attachments/assets/28990ea0-8bf1-4dc6-9fa4-9e26c043e52e" />
+
+##### Identifica una instrucción que use la ALU y explica qué hace.
+##### ¿Para qué sirve el registro PC?
+##### ¿Cuál es la diferencia entre @i y @READKEYBOARD?
+##### Describe qué se necesita para leer el teclado y mostrar información en la pantalla.
+##### Identifica un bucle en el programa y explica su funcionamiento.
+##### Identifica una condición en el programa y explica su funcionamiento.
 
 
 
@@ -115,6 +164,7 @@ R// La diferencia entre D=M y M=D, es:
 
   - Para leer del teclado en Hack, solo hay que leer el valor que está guardado en una dirección especial que indica qué tecla se presionó.
   - Para pintar un pixel en la pantalla, se escribe un valor en la memoria que controla los puntos de la pantalla. Así, leer y pintar se hacen leyendo o escribiendo en direcciones específicas.
+
 
 
 
