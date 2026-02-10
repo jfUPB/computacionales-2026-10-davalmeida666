@@ -63,11 +63,22 @@ M=M+1
 <img width="1321" height="618" alt="image" src="https://github.com/user-attachments/assets/28990ea0-8bf1-4dc6-9fa4-9e26c043e52e" />
 
 ##### Identifica una instrucción que use la ALU y explica qué hace.
+M=M+1; toma el valor almacenado en la memoria, y le suma uno, esto permite que el programa siga pintando cada pixel de la pantalla.
 ##### ¿Para qué sirve el registro PC?
+Para llevar la cuenta del número de instrucción que el programa va a ejecutar
 ##### ¿Cuál es la diferencia entre @i y @READKEYBOARD?
+@i, o sea una variable declarada, toma el primer espacio libre que encuentre en la memoria, mientras que @READKEYBOARD va a leer el último espacio en la memoria y le va a asignar el valor de la tecla presionada.
 ##### Describe qué se necesita para leer el teclado y mostrar información en la pantalla.
+1ero se necesita guardar el numero de tecla en la memoria, luego crear un programa que compare ese valor con 0, y dependiendo del resultado, ejecutar otra instrucción. Ahora, para que todo funcione, se debe habilitar el teclado en el simulador.
 ##### Identifica un bucle en el programa y explica su funcionamiento.
+Desde @READKEYBOARD al final, se coloca la instrucción, 0;JMP. Esto permite que al "finalizar" el programa, el mismo automaticamente vuelva a la función @READKEYBOARD, volviendo al inicio de leer la tecla y pintar la pantalla si es el caso.
 ##### Identifica una condición en el programa y explica su funcionamiento.
+@READKEYBOARD
+D;JLE
+
+Esta instrucción dice, que el programa puede saltar a la función de leer el teclado, si el valor de D (que está asignado al número de carácter) es menor al último espacio de memoria, o sea, si una tecla está siendo pulsada, puede avanzar, sino no.
+
+
 
 
 
@@ -170,6 +181,7 @@ R// La diferencia entre D=M y M=D, es:
 
   - Para leer del teclado en Hack, solo hay que leer el valor que está guardado en una dirección especial que indica qué tecla se presionó.
   - Para pintar un pixel en la pantalla, se escribe un valor en la memoria que controla los puntos de la pantalla. Así, leer y pintar se hacen leyendo o escribiendo en direcciones específicas.
+
 
 
 
