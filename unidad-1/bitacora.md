@@ -72,8 +72,12 @@ M=M+1
 
 
 ## Bitácora de aplicación 
+### Actividad 04
+#### Implementando un ciclo simple
+Crea un programa que use un ciclo para sumar los números del 1 al 5 y guarde el resultado en la dirección de memoria 12.
 
-```asm
+
+```.asm
 @12
 M=0
 
@@ -166,6 +170,7 @@ R// La diferencia entre D=M y M=D, es:
 
   - Para leer del teclado en Hack, solo hay que leer el valor que está guardado en una dirección especial que indica qué tecla se presionó.
   - Para pintar un pixel en la pantalla, se escribe un valor en la memoria que controla los puntos de la pantalla. Así, leer y pintar se hacen leyendo o escribiendo en direcciones específicas.
+
 
 
 
