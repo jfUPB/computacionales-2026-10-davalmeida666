@@ -78,6 +78,49 @@ D;JLE
 
 Esta instrucción dice, que el programa puede saltar a la función de leer el teclado, si el valor de D (que está asignado al número de carácter) es menor al último espacio de memoria, o sea, si una tecla está siendo pulsada, puede avanzar, sino no.
 
+### Actividad 03
+#### Control de flujo con saltos
+##### Vamos a resolver juntos este problema:
+
+Escribe un programa que compare el valor almacenado en la dirección de memoria 5 con el valor 10. Si el valor es menor que 10, guarda el valor 1 en la dirección 7. Si el valor es mayor o igual a 10, guarda el valor 0 en la dirección 7.
+
+
+#### Código:
+``` .asm
+    @5
+    D=M        
+
+    @10
+    D=D-A      
+
+    @MENOR
+    D;JLT      
+
+    
+    @7
+    M=0        
+    @FIN
+    0;JMP
+
+(MENOR)
+    @7
+    M=1        
+
+(FIN)
+    @FIN
+    0;JMP      
+
+
+```
+##### Menor a 10
+
+<img width="1098" height="297" alt="image" src="https://github.com/user-attachments/assets/a665ab3f-f6b2-4145-893c-50dd107d6bfd" />
+
+##### Mayor o igual a 10
+<img width="1282" height="253" alt="image" src="https://github.com/user-attachments/assets/05a2d4a9-18d7-4d53-8df6-50eb9cc40d64" />
+
+
+
 
 
 
@@ -181,6 +224,7 @@ R// La diferencia entre D=M y M=D, es:
 
   - Para leer del teclado en Hack, solo hay que leer el valor que está guardado en una dirección especial que indica qué tecla se presionó.
   - Para pintar un pixel en la pantalla, se escribe un valor en la memoria que controla los puntos de la pantalla. Así, leer y pintar se hacen leyendo o escribiendo en direcciones específicas.
+
 
 
 
