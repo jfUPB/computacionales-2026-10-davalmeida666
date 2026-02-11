@@ -246,8 +246,90 @@ M=D
 
 
 ## Bitácora de aplicación 
+ 1
+ ```.asm
+
+@10
+D=A
+@pa
+M=D
 
 
+@20
+D=A
+@pb
+M=D
+
+
+@pa
+D=A
+@R0
+M=D
+
+
+@pb
+D=A
+@R1
+M=D
+
+
+@RET_MAIN
+D=A
+@R15
+M=D
+
+@SWAP
+0;JMP
+
+(RET_MAIN)
+
+
+@0
+D=A
+@R0
+M=D
+
+(END)
+@END
+0;JMP
+
+
+
+
+(SWAP)
+
+
+@R0
+A=M        
+D=M        
+@R13
+M=D        
+
+
+@R1
+A=M        
+D=M        
+@R0
+A=M        
+M=D        
+
+
+@R13
+D=M       
+@R1
+A=M       
+M=D        
+
+
+@R15
+A=M
+0;JMP
+ ```
+2
+ ```.asm
+
+ ```
 
 ## Bitácora de reflexión
+
 
