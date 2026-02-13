@@ -335,10 +335,160 @@ A=M
 
 2
  ```.asm
+(start)
 
+
+// sumResult = 0 
+@sumResult 
+M=0
+
+// Crear arreglo arr[]
+
+// arr[0] = 10 
+@10 
+D=A 
+@arr 
+M=D
+
+// arr[1] = 15 
+@15 
+D=A 
+@arr 
+A=A+1 
+M=D
+
+// arr[2] = 2 
+@2 
+D=A 
+@arr 
+A=A+1 
+A=A+1 
+M=D
+
+// arr[3] = 3 
+@3 
+D=A 
+@arr 
+A=A+1 
+A=A+1 
+A=A+1 
+M=D
+
+// arr[4] = 50 
+@50 
+D=A 
+@arr 
+A=A+1 
+A=A+1 
+A=A+1 
+A=A+1
+M=D
+
+// Pasar argumentos
+
+@arr 
+D=A 
+@R0 
+M=D // R0 = base
+
+@5 
+D=A 
+@R1 
+M=D // R1 = size
+
+// Guardar retorno 
+@returnFromCalSum 
+D=A 
+@R15 
+M=D
+
+@calSum 
+0;JMP
+
+(returnFromCalSum)
+
+// Guardar resultado 
+@R0 
+D=M 
+@sumResult 
+M=D
+
+@fin 
+(fin) 
+0;JMP
+
+// FUNCIÓN calSum
+
+(calSum)
+
+// sum = 0 
+@0 
+D=A 
+@R13 
+M=D
+
+// i = 0 
+@0 
+D=A 
+@R14 
+M=D
+
+(loop)
+
+// if i >= size salir 
+@R14 
+D=M 
+@R1 
+D=D-M 
+@endLoop 
+D;JGE
+
+// D = base 
+@R0 
+D=M
+
+// D = base + i 
+@R14 
+D=D+M
+
+// A = base + i 
+A=D
+
+// D = *(parr+i) 
+D=M
+
+// sum += D 
+@R13 
+M=D+M
+
+// i++ 
+@R14 
+M=M+1
+
+@loop 0;JMP
+
+(endLoop)
+
+// return sum 
+@R13 
+D=M 
+@R0 
+M=D
+
+@R15 
+A=M 
+0;JMP
  ```
+<img width="1446" height="813" alt="image" src="https://github.com/user-attachments/assets/64cbf9e7-7b10-4bec-a45e-e714202e7240" />
+
+<img width="1032" height="602" alt="image" src="https://github.com/user-attachments/assets/75ef7cf5-b028-4856-8f24-d3f7b88c19fb" />
+
+<img width="974" height="482" alt="image" src="https://github.com/user-attachments/assets/7ee451fd-fdd5-42c1-bf84-8539d3167255" />
+
+
 
 ## Bitácora de reflexión
+
 
 
 
