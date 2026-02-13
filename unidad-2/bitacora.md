@@ -325,11 +325,20 @@ M=D
 A=M
 0;JMP
  ```
+
+<img width="1487" height="736" alt="image" src="https://github.com/user-attachments/assets/201492eb-2491-47d2-8841-83bffeeb6553" />
+<img width="1220" height="814" alt="image" src="https://github.com/user-attachments/assets/69d1dbcf-edc1-46f7-8cd0-26a4b5a81a60" />
+<img width="1197" height="577" alt="image" src="https://github.com/user-attachments/assets/a50511d2-b69d-46bc-9607-a068c9961cd5" />
+
+
+
+
 2
  ```.asm
 
  ```
 
 ## Bitácora de reflexión
+
 
 
