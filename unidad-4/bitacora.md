@@ -19,307 +19,218 @@ Una forma sencilla de entender este comportamiento es imaginar una **fila para c
 
 ---
 ##Código Completo
-En OfApp.h:
+### ofApp.h
+```.c++
 #pragma once
 #include "ofMain.h"
 
 //* Nodo de la cola
 struct Node {
+	float x;
+	float y;
+	float radius;
+	ofColor color;
+	float opacity;
 
-    float x;
-    float y;
-    float radius;
-    ofColor color;
-    float opacity;
-
-    Node* next;
-
+	Node * next;
 };
 
 // Cola FIFO
 class BrushQueue {
-
 public:
+	Node * front;
+	Node * rear;
+	int size;
+	int maxSize;
 
-    Node* front;
-    Node* rear;
+	BrushQueue(int _maxSize);
+	~BrushQueue();
 
-    int size;
-    int maxSize;
-
-    BrushQueue(int _maxSize);
-    ~BrushQueue();
-
-    void enqueue(float x, float y, float radius, ofColor color, float opacity);
-
-    void dequeue();
-
-    void clear();
-
-    bool isEmpty();
-
+	void enqueue(float x, float y, float radius, ofColor color, float opacity);
+	void dequeue();
+	void clear();
+	bool isEmpty();
 };
 
-
-// Constructor simple
-BrushQueue::BrushQueue(int _maxSize)
-{
-    front = nullptr;
-    rear = nullptr;
-    size = 0;
-    maxSize = _maxSize;
+// Constructor
+BrushQueue::BrushQueue(int _maxSize) {
+	front = nullptr;
+	rear = nullptr;
+	size = 0;
+	maxSize = _maxSize;
 }
-
 
 // Destructor
-BrushQueue::~BrushQueue()
-{
-    clear();
+BrushQueue::~BrushQueue() {
+	clear();
 }
-
 
 // Agregar nodo al final de la cola
-void BrushQueue::enqueue(float x, float y, float radius, ofColor color, float opacity)
-{
+void BrushQueue::enqueue(float x, float y, float radius, ofColor color, float opacity) {
+	Node * newNode = new Node;
+	newNode->x = x;
+	newNode->y = y;
+	newNode->radius = radius;
+	newNode->color = color;
+	newNode->opacity = opacity;
+	newNode->next = nullptr;
 
-    Node* newNode = new Node;
+	if (front == nullptr) {
+		front = newNode;
+		rear = newNode;
+	} else {
+		rear->next = newNode;
+		rear = newNode;
+	}
 
-    newNode->x = x;
-    newNode->y = y;
-    newNode->radius = radius;
-    newNode->color = color;
-    newNode->opacity = opacity;
+	size++;
 
-    newNode->next = nullptr;
-
-    if (front == nullptr)
-    {
-        front = newNode;
-        rear = newNode;
-    }
-    else
-    {
-        rear->next = newNode;
-        rear = newNode;
-    }
-
-    size = size + 1;
-
-    if (size > maxSize)
-    {
-        dequeue();
-    }
-
+	if (size > maxSize) {
+		dequeue();
+	}
 }
-
 
 // Eliminar el nodo más antiguo
-void BrushQueue::dequeue()
-{
+void BrushQueue::dequeue() {
+	if (front == nullptr) {
+		return;
+	}
 
-    if (front == nullptr)
-    {
-        return;
-    }
+	Node * temp = front;
+	front = front->next;
+	delete temp;
 
-    Node* temp;
+	size--;
 
-    temp = front;
-
-    front = front->next;
-
-    delete temp;
-
-    size = size - 1;
-
-    if (front == nullptr)
-    {
-        rear = nullptr;
-    }
-
+	if (front == nullptr) {
+		rear = nullptr;
+	}
 }
-
 
 // Eliminar todos los nodos
-void BrushQueue::clear()
-{
-
-    while (front != nullptr)
-    {
-
-        Node* temp;
-
-        temp = front;
-
-        front = front->next;
-
-        delete temp;
-
-    }
-
-    rear = nullptr;
-
-    size = 0;
-
+void BrushQueue::clear() {
+	while (front != nullptr) {
+		Node * temp = front;
+		front = front->next;
+		delete temp;
+	}
+	rear = nullptr;
+	size = 0;
 }
 
-
-// Verificar si está vacía
-bool BrushQueue::isEmpty()
-{
-
-    if (front == nullptr)
-    {
-        return true;
-    }
-
-    return false;
-
+// Verificar si la cola está vacía
+bool BrushQueue::isEmpty() {
+	return front == nullptr;
 }
 
-
-
+// Clase principal de openFrameworks
 class ofApp : public ofBaseApp {
-
 public:
+	BrushQueue strokes;
+	float backgroundHue;
 
-    BrushQueue strokes;
+	ofApp()
+		: strokes(50) {
+		backgroundHue = 0;
+	}
 
-    float backgroundHue;
-
-    ofApp() : strokes(50)
-    {
-        backgroundHue = 0;
-    }
-
-    void setup();
-    void update();
-    void draw();
-    void keyPressed(int key);
-
+	void setup();
+	void update();
+	void draw();
+	void keyPressed(int key);
 };
-*//
 
----------------------------------------------------------------------------------------------------------
-
-//*
-En ofApp.cpp:
-
+```
+### En ofApp.cpp
+```.c++
 #include "ofApp.h"
 
+//--------------------------------------------------------------
+void ofApp::setup() { ofBackground(0); }
 
 //--------------------------------------------------------------
-void ofApp::setup()
-{
-    ofBackground(0);
+void ofApp::update() {
+
+backgroundHue = backgroundHue + 0.2;
+
+if (backgroundHue > 255) {
+	backgroundHue = 0;
 }
 
+if (ofGetMousePressed()) {
 
-//--------------------------------------------------------------
-void ofApp::update()
-{
+	float x = ofGetMouseX();
+	float y = ofGetMouseY();
 
-    backgroundHue = backgroundHue + 0.2;
+	float radius = ofRandom(5, 25);
 
-    if (backgroundHue > 255)
-    {
-        backgroundHue = 0;
-    }
+	ofColor color;
 
+	color.setHsb(ofRandom(255), 200, 255);
 
-    if (ofGetMousePressed())
-    {
+	float opacity = 200;
 
-        float x = ofGetMouseX();
-        float y = ofGetMouseY();
-
-        float radius = ofRandom(5, 25);
-
-        ofColor color;
-
-        color.setHsb(ofRandom(255), 200, 255);
-
-        float opacity = 200;
-
-        strokes.enqueue(x, y, radius, color, opacity);
-
-    }
-
+	strokes.enqueue(x, y, radius, color, opacity);
+}
 }
 
-
 //--------------------------------------------------------------
-void ofApp::draw()
-{
+void ofApp::draw() {
 
-    ofColor color1;
-    ofColor color2;
+ofColor color1;
+ofColor color2;
 
-    color1.setHsb(backgroundHue, 150, 240);
+color1.setHsb(backgroundHue, 150, 240);
 
-    color2.setHsb(fmod(backgroundHue + 128, 255), 150, 240);
+color2.setHsb(fmod(backgroundHue + 128, 255), 150, 240);
 
-    ofBackgroundGradient(color1, color2, OF_GRADIENT_LINEAR);
+ofBackgroundGradient(color1, color2, OF_GRADIENT_LINEAR);
 
+Node * current;
 
-    Node* current;
+current = strokes.front;
 
-    current = strokes.front;
+int index = 0;
 
-    int index = 0;
+while (current != nullptr) {
 
-    while (current != nullptr)
-    {
+	float fade;
 
-        float fade;
+	fade = ofMap(index, 0, strokes.size, 255, 50);
 
-        fade = ofMap(index, 0, strokes.size, 255, 50);
+	ofSetColor(current->color, fade);
 
-        ofSetColor(current->color, fade);
+	ofDrawCircle(current->x, current->y, current->radius);
 
-        ofDrawCircle(current->x, current->y, current->radius);
+	current = current->next;
 
-        current = current->next;
-
-        index = index + 1;
-
-    }
-
+	index = index + 1;
+}
 }
 
-
 //--------------------------------------------------------------
-void ofApp::keyPressed(int key)
-{
+void ofApp::keyPressed(int key) {
 
-    if (key == 'c')
-    {
-        strokes.clear();
-    }
+if (key == 'c') {
+	strokes.clear();
+}
 
-    if (key == 'a')
-    {
+if (key == 'a') {
 
-        if (strokes.maxSize == 50)
-        {
-            strokes.maxSize = 100;
-        }
-        else
-        {
-            strokes.maxSize = 50;
-        }
-
-    }
-
-    else if (key == 's')
-    {
-        ofSaveFrame();
-    }
+	if (strokes.maxSize == 50) {
+		strokes.maxSize = 100;
+	} else {
+		strokes.maxSize = 50;
+	}
 
 }
 
-*//
+else if (key == 's') {
+	ofSaveFrame();
+}
+}
 
+```
 ---
 
 # Estructura de Datos Implementada
@@ -557,4 +468,5 @@ Además, la integración de esta estructura con **openFrameworks** permitió vis
 Este ejercicio demuestra cómo las estructuras de datos no solo son conceptos teóricos, sino que también pueden aplicarse directamente para crear **sistemas interactivos y visuales** dentro de programas reales.
 
 ## Bitácora de reflexión
+
 
