@@ -260,7 +260,7 @@ Este puntero permite **conectar los nodos entre sí**, formando una **lista enla
 
 ### Imagen 1 — Estructura del nodo en memoria
 
-*(Aquí debe ir la captura mostrando la estructura `Node` y sus variables en el depurador)*
+
 
 ---
 
@@ -468,5 +468,6 @@ Además, la integración de esta estructura con **openFrameworks** permitió vis
 Este ejercicio demuestra cómo las estructuras de datos no solo son conceptos teóricos, sino que también pueden aplicarse directamente para crear **sistemas interactivos y visuales** dentro de programas reales.
 
 ## Bitácora de reflexión
+
 
 
