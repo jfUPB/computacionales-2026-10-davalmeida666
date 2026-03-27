@@ -334,5 +334,113 @@ ofApp::~ofApp() {
     particles.clear();
 }
 ```
+El programa está hecho usando programación orientada a objetos, lo que significa que todo se organiza en clases.
+
+Hay una clase principal llamada Particle, que funciona como base. A partir de ella se crean otros tipos de partículas que heredan sus características.
+<img width="686" height="391" alt="image" src="https://github.com/user-attachments/assets/d6aa89ba-c43e-44c5-ba1e-3f9a1407b334" />
+<img width="199" height="228" alt="image" src="https://github.com/user-attachments/assets/d86eeb5d-a5e5-4b72-8f76-cef42cfc82a3" />
+<img width="420" height="40" alt="image" src="https://github.com/user-attachments/assets/45d000ff-b821-45cd-aad6-2ee01d710133" />
+
+Existen dos tipos principales de partículas:
+
+RisingParticle: son las partículas que salen desde abajo de la pantalla, suben y luego explotan.
+ExplosionParticle: son las partículas que aparecen después de la explosión.
+
+Gracias a la herencia, se pueden crear nuevas partículas con comportamientos diferentes sin cambiar la estructura del programa.
+
+🔧 Modificaciones realizadas
+
+Se añadieron nuevos tipos de partículas para hacer el sistema más interesante:
+
+ZigZagParticle: se mueve en zigzag, cambiando su posición en el eje X usando una función seno.
+SpiralParticle: se mueve en forma curva, como si hiciera una espiral.
+
+También se agregó una nueva explosión:
+
+ChaosExplosion: genera partículas en direcciones totalmente aleatorias y dibuja distintas formas (círculos, rectángulos y triángulos).
+
+Además, el sistema ahora es más aleatorio:
+<img width="482" height="235" alt="image" src="https://github.com/user-attachments/assets/c25ecad9-b693-4ed6-9be3-21770ed540ea" />
+<img width="391" height="139" alt="image" src="https://github.com/user-attachments/assets/ba79497b-aa65-4f0e-ae8e-5e313f52cf24" />
+
+El tipo de partícula cambia
+El tipo de explosión cambia
+La cantidad de partículas cambia
+Incluso las formas que se dibujan cambian
+
+Esto hace que la simulación sea más dinámica sin necesidad de rehacer todo el código.
+
+🧠 Cómo funciona internamente (memoria y herencia)
+
+Cuando se analiza una partícula como ZigZagParticle en el depurador, se puede ver cómo se organizan sus datos:
+
+Primero están los datos de Particle
+Luego los de RisingParticle
+Y al final los propios de ZigZagParticle
+
+Esto significa que en C++ la herencia se guarda en orden, como si una clase contuviera a la otra dentro.
+
+⚙️ Funciones virtuales y _vtable
+
+Las clases usan funciones virtuales, lo que permite que cada tipo de partícula tenga su propio comportamiento.
+
+Internamente, C++ usa algo llamado _vtable, que es una tabla que guarda qué función debe ejecutar cada objeto.
+
+Por ejemplo:
+
+CircularExplosion y ChaosExplosion comparten funciones base
+Pero cada una tiene su propia versión de draw()
+
+Esto demuestra que cada clase decide cómo comportarse, aunque venga de la misma base.
+
+🔁 Polimorfismo (clave del programa)
+
+En el método update() se recorre un vector de Particle*, es decir, un conjunto de partículas sin importar su tipo.
+
+A todas se les llama update(dt), pero:
+
+ZigZagParticle se mueve en zigzag
+SpiralParticle se mueve en espiral
+
+Esto funciona porque el programa decide en tiempo real qué función ejecutar.
+A esto se le llama polimorfismo.
+
+🔐 Uso de protected
+
+Las variables como position o velocity están marcadas como protected, lo que significa que:
+
+Las clases hijas sí pueden usarlas
+Pero no son completamente públicas
+
+Esto permite reutilizar datos sin romper la estructura del código.
+
+🔄 Ciclo de vida de una partícula
+
+Cada partícula sigue este proceso:
+
+Se crea y se guarda en un vector
+Se actualiza en cada frame (update)
+Cumple una condición (tiempo o altura)
+Explota
+Se elimina del sistema (delete + erase)
+
+Esto asegura que:
+
+Todo funcione correctamente
+No haya errores
+No haya fugas de memoria
+🚀 Prueba de rendimiento
+![Uploading image.png…]()
+
+Se probó el programa generando muchas partículas al mismo tiempo (por ejemplo, presionando la barra espaciadora).
+
+El sistema:
+
+Sigue funcionando bien
+Actualiza todas las partículas
+Maneja las explosiones correctamente
+Libera memoria sin errores
+
+Esto demuestra que el programa es estable y eficiente, incluso con muchos objetos en pantalla.
 
 ## Bitácora de reflexión
