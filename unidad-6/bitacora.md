@@ -5,7 +5,7 @@
 
 ## Bitácora de aplicación 
 📁 ofApp.h
-```
+``` c++.
 #pragma once
 
 #include "ofMain.h"
@@ -110,7 +110,7 @@ private:
 ```
 
 📁 ofApp.cpp
-```
+``` c ++.
 #include "ofApp.h"
 #include <algorithm>
 
