@@ -349,4 +349,50 @@ void ofApp::keyPressed(int key) {
     }
 }
 ```
+🧩 FASE 1 — Extensiones realizadas
+
+Se implementaron las siguientes mejoras:
+
+Nuevo tipo de partícula "comet" en la Factory con propiedades diferenciadas.
+Nuevo estado SpiralState con movimiento orbital y cambio de color dinámico.
+Integración completa con el patrón Observer mediante el evento "spiral" activado con la tecla 'p'.
+### Evidencias
+### Evidencia 1
+
+
+🧠 Explicación
+
+El depurador muestra que se ejecuta la rama correspondiente a "comet", lo que confirma que la fábrica está creando correctamente el nuevo tipo de partícula. Se observan valores diferenciados en tamaño, color y velocidad respecto a otros tipos.
+
+⚖️ Justificación
+
+La Factory permite encapsular la creación de objetos. Al agregar "comet", se mantiene el diseño abierto a extensión sin modificar otras partes del sistema (principio Open/Closed).
+
+### Evidencia 2
+🧠 Explicación
+
+Cada estado tiene su propia vtable porque implementa su propia versión de update(). El cambio en la vtable refleja el polimorfismo dinámico.
+
+⚖️ Justificación
+
+Esto demuestra que el patrón State funciona correctamente: el comportamiento no depende de condicionales, sino del tipo dinámico del objeto.
+### Evidencia 3
+🧠 Explicación
+
+El evento se propaga correctamente a través del sistema Observer hasta cambiar el estado de cada partícula.
+
+⚖️ Justificación
+
+Este diseño desacopla completamente la entrada del usuario del comportamiento interno, permitiendo escalar el sistema fácilmente.
+### Evidencia 4
+🧠 Explicación
+
+El aumento de velocidad genera un comportamiento visual más dinámico y distintivo.
+
+⚖️ Justificación
+
+Se decidió modificar la velocidad en la Factory y no en el State para que sea una propiedad intrínseca del tipo de partícula, no del comportamiento.
+
+
 ## Bitácora de reflexión
+
