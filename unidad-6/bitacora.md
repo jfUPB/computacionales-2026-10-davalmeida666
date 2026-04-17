@@ -359,6 +359,7 @@ Integración completa con el patrón Observer mediante el evento "spiral" activa
 ### Evidencias
 ### Evidencia 1
 
+<img width="922" height="574" alt="image" src="https://github.com/user-attachments/assets/7fdf9e2a-4d2d-472f-ba06-d3e9100e1640" />
 
 🧠 Explicación
 
@@ -369,6 +370,8 @@ El depurador muestra que se ejecuta la rama correspondiente a "comet", lo que co
 La Factory permite encapsular la creación de objetos. Al agregar "comet", se mantiene el diseño abierto a extensión sin modificar otras partes del sistema (principio Open/Closed).
 
 ### Evidencia 2
+<img width="1211" height="596" alt="image" src="https://github.com/user-attachments/assets/8aa40d11-856e-4189-b5c3-8cb4f407f366" />
+
 🧠 Explicación
 
 Cada estado tiene su propia vtable porque implementa su propia versión de update(). El cambio en la vtable refleja el polimorfismo dinámico.
@@ -377,6 +380,8 @@ Cada estado tiene su propia vtable porque implementa su propia versión de updat
 
 Esto demuestra que el patrón State funciona correctamente: el comportamiento no depende de condicionales, sino del tipo dinámico del objeto.
 ### Evidencia 3
+<img width="1248" height="627" alt="image" src="https://github.com/user-attachments/assets/e264170c-1af7-463f-842e-50f2171a1b93" />
+
 🧠 Explicación
 
 El evento se propaga correctamente a través del sistema Observer hasta cambiar el estado de cada partícula.
@@ -385,6 +390,7 @@ El evento se propaga correctamente a través del sistema Observer hasta cambiar 
 
 Este diseño desacopla completamente la entrada del usuario del comportamiento interno, permitiendo escalar el sistema fácilmente.
 ### Evidencia 4
+
 🧠 Explicación
 
 El aumento de velocidad genera un comportamiento visual más dinámico y distintivo.
