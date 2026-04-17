@@ -370,7 +370,8 @@ El depurador muestra que se ejecuta la rama correspondiente a "comet", lo que co
 La Factory permite encapsular la creación de objetos. Al agregar "comet", se mantiene el diseño abierto a extensión sin modificar otras partes del sistema (principio Open/Closed).
 
 ### Evidencia 2
-<img width="1211" height="596" alt="image" src="https://github.com/user-attachments/assets/8aa40d11-856e-4189-b5c3-8cb4f407f366" />
+<img width="858" height="289" alt="image" src="https://github.com/user-attachments/assets/160755db-1037-41d3-a436-49fb34fa0e29" />
+
 
 🧠 Explicación
 
@@ -380,7 +381,11 @@ Cada estado tiene su propia vtable porque implementa su propia versión de updat
 
 Esto demuestra que el patrón State funciona correctamente: el comportamiento no depende de condicionales, sino del tipo dinámico del objeto.
 ### Evidencia 3
-<img width="1248" height="627" alt="image" src="https://github.com/user-attachments/assets/e264170c-1af7-463f-842e-50f2171a1b93" />
+<img width="879" height="641" alt="image" src="https://github.com/user-attachments/assets/a618b34a-7753-4b4a-9db1-74ba273e0967" />
+<img width="938" height="576" alt="image" src="https://github.com/user-attachments/assets/01e4727a-a0e5-4268-86e4-0cafb4b18212" />
+<img width="909" height="266" alt="image" src="https://github.com/user-attachments/assets/f5bcf925-db03-429e-8ee9-597eb26f93e4" />
+<img width="930" height="468" alt="image" src="https://github.com/user-attachments/assets/729f0841-7643-4204-8722-79981703fc06" />
+<img width="908" height="227" alt="image" src="https://github.com/user-attachments/assets/dd897594-955e-490e-a079-a9393a47e372" />
 
 🧠 Explicación
 
@@ -390,6 +395,8 @@ El evento se propaga correctamente a través del sistema Observer hasta cambiar 
 
 Este diseño desacopla completamente la entrada del usuario del comportamiento interno, permitiendo escalar el sistema fácilmente.
 ### Evidencia 4
+<img width="1223" height="666" alt="image" src="https://github.com/user-attachments/assets/f4e5f610-0c2a-4958-9d32-2b5772476885" />
+<img width="1359" height="767" alt="image" src="https://github.com/user-attachments/assets/8ad607dd-2738-4ab8-9dba-46f97b703ef8" />
 
 🧠 Explicación
 
