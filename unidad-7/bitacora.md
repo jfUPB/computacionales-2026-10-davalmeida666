@@ -167,6 +167,7 @@ int main() {
 ### Fase 2
 #### Evidencia 1
 <img width="1018" height="343" alt="image" src="https://github.com/user-attachments/assets/fa138be9-497f-46ff-a415-d67bcbab6807" />
+
 #### Explicación
 En el depurador se observa que la variable mainWindow contiene una dirección de memoria válida, lo que indica que GLFW ha creado correctamente la ventana. Además, previamente se ejecutó glfwMakeContextCurrent, lo que garantiza que el contexto de OpenGL está activo en el hilo actual.
 
