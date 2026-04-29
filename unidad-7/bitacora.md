@@ -4,6 +4,7 @@
 
 
 ## Bitácora de aplicación 
+### Fase1 1
 triangle.cpp
 ```.c++
 #include <glad/glad.h>
@@ -163,5 +164,23 @@ int main() {
 
 
 ```
+### Fase 2
+#### Evidencia 1
+<img width="1018" height="343" alt="image" src="https://github.com/user-attachments/assets/fa138be9-497f-46ff-a415-d67bcbab6807" />
+#### Explicación
+En el depurador se observa que la variable mainWindow contiene una dirección de memoria válida, lo que indica que GLFW ha creado correctamente la ventana. Además, previamente se ejecutó glfwMakeContextCurrent, lo que garantiza que el contexto de OpenGL está activo en el hilo actual.
+
+Este contexto es necesario para poder utilizar OpenGL, ya que contiene toda la información de estado requerida por la GPU. En este punto del programa se procede a ejecutar gladLoadGLLoader, cuya función es cargar las direcciones de las funciones de OpenGL disponibles en el sistema.
+
+La correcta existencia del contexto antes de esta llamada asegura que GLAD puede inicializarse sin errores y que las funciones gráficas estarán disponibles para su uso posterior.
+#### Justificación
+GLFW debe inicializarse antes que GLAD porque es el encargado de crear la ventana y, más importante, el contexto de OpenGL. Este contexto es un requisito indispensable para poder interactuar con la API gráfica.
+
+GLAD, por su parte, no implementa OpenGL directamente, sino que actúa como un cargador que obtiene en tiempo de ejecución las direcciones de las funciones de OpenGL a través del contexto activo, utilizando glfwGetProcAddress.
+
+Si GLAD se ejecutara antes de que exista un contexto válido, no podría cargar estas funciones, lo que provocaría fallos en la ejecución del programa. Por ello, el orden de inicialización refleja la dependencia fundamental entre la creación del contexto (GLFW) y la carga de funciones (GLAD), lo cual es un paso esencial en el pipeline de inicialización de OpenGL.
+
+#### Evidencia 2
+
 
 ## Bitácora de reflexión
