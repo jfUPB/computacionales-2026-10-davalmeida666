@@ -10,7 +10,7 @@
 https://github.com/user-attachments/assets/b68abef2-2e45-42c9-964d-97a9922c5fe9
 
 
-### Fase1 1
+### Fase 1
 triangle.cpp
 ```.c++
 #include <glad/glad.h>
@@ -264,7 +264,19 @@ newPos.y += offset.y;
 ```
 Como resultado, todos los vértices del triángulo fueron desplazados fuera del rango visible del espacio de coordenadas normalizadas (NDC), por lo que el triángulo dejó de aparecer en pantalla.
 #### Justificación
+Esta prueba demuestra que el pipeline de OpenGL no valida ni restringe los valores de entrada enviados mediante uniforms.
 
+El comportamiento observado no corresponde a un error del programa, sino al funcionamiento esperado del sistema gráfico:
+
+El vertex shader aplica transformaciones de manera directa
+OpenGL utiliza coordenadas NDC en el rango [-1, 1]
+Cualquier vértice fuera de ese rango es descartado en la etapa de rasterización
+
+Por lo tanto, el hecho de que el triángulo desaparezca indica que fue desplazado fuera del área visible, no que haya un fallo en la geometría o en el pipeline.
+
+Esto permite concluir que:
+
+El control de la visibilidad depende exclusivamente de las transformaciones aplicadas, no de validaciones automáticas del sistema gráfico.
 #### Evidencia 5
 
 #### Explicación
