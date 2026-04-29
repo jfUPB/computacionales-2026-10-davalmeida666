@@ -212,4 +212,47 @@ Esto confirma el principio del pipeline de OpenGL:
 Los shaders no acceden a memoria del CPU, sino a buffers previamente configurados y enlazados mediante atributos.
 
 Además, el hecho de ver el arreglo en el debugger antes de la configuración del atributo demuestra la transición explícita de datos desde CPU hacia GPU, lo cual es esencial para entender el funcionamiento del pipeline gráfico.
+
+#### Evidencia 3
+<img width="1047" height="325" alt="image" src="https://github.com/user-attachments/assets/5428c756-092e-4921-82ed-c901b5a7d4f0" />
+
+#### Explicación
+En el render loop de la aplicación se obtienen continuamente las coordenadas del cursor con glfwGetCursorPos, las cuales se normalizan a valores entre 0 y 1 para ser utilizadas como entrada dinámica.
+
+Estos valores se envían al shader mediante el uniform:
+
+glUniform4f(colorLocation, x, y, 0.0f, 1.0f);
+
+Este uniform es recibido por el fragment shader como:
+
+uniform vec4 ourColor;
+FragColor = ourColor;
+
+De esta manera, el color del triángulo cambia en tiempo real dependiendo de la posición del mouse, sin modificar los vértices ni el VBO.
+#### Justificación
+El uso de uniforms permite modificar el comportamiento visual del shader sin alterar la geometría almacenada en la GPU.
+
+En este caso:
+
+El VBO permanece estático (no cambia la forma del triángulo)
+El uniform ourColor se actualiza en cada frame
+El fragment shader utiliza ese valor para definir el color final del píxel
+
+Esto demuestra una separación fundamental del pipeline de OpenGL:
+
+Los datos geométricos (VBO) son independientes del estado dinámico del shader (uniforms)
+
+Además, el cambio visual en tiempo real confirma que los uniforms son variables globales del shader que pueden ser actualizadas desde la CPU sin necesidad de recompilar ni reenviar buffers completos.
+#### Evidencia 4
+
+#### Explicación
+
+#### Justificación
+
+#### Evidencia 5
+
+#### Explicación
+
+#### Justificación
+
 ## Bitácora de reflexión
