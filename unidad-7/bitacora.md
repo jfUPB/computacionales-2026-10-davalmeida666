@@ -244,9 +244,25 @@ Los datos geométricos (VBO) son independientes del estado dinámico del shader 
 
 Además, el cambio visual en tiempo real confirma que los uniforms son variables globales del shader que pueden ser actualizadas desde la CPU sin necesidad de recompilar ni reenviar buffers completos.
 #### Evidencia 4
+<img width="1246" height="657" alt="image" src="https://github.com/user-attachments/assets/b55e13a5-ece8-4714-9129-3f32540dce0c" />
 
 #### Explicación
+Se realizó una prueba de borde modificando el valor del uniform offset, el cual controla la posición del triángulo en el vertex shader.
 
+En lugar de utilizar los valores normales calculados a partir del mouse:
+
+glUniform2f(offsetLocation, x * 2.0f - 1.0f, 1.0f - y * 2.0f);
+
+Se forzaron valores extremos como:
+
+glUniform2f(offsetLocation, 5.0f, 5.0f);
+
+El vertex shader aplica este valor directamente a la posición de los vértices:
+
+newPos.x += offset.x;
+newPos.y += offset.y;
+
+Como resultado, todos los vértices del triángulo fueron desplazados fuera del rango visible del espacio de coordenadas normalizadas (NDC), por lo que el triángulo dejó de aparecer en pantalla.
 #### Justificación
 
 #### Evidencia 5
