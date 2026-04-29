@@ -189,5 +189,27 @@ Si GLAD se ejecutara antes de que exista un contexto válido, no podría cargar 
 
 #### Evidencia 2
 
+<img width="1051" height="458" alt="image" src="https://github.com/user-attachments/assets/5d17d379-ca51-47e7-b66c-6936ab9502a4" />
 
+#### Explicación
+El arreglo de vértices se define en CPU como un conjunto de valores flotantes que representan las coordenadas del triángulo.
+
+Posteriormente:
+
+glBufferData transfiere ese arreglo desde la memoria del CPU hacia la GPU, almacenándolo en un VBO.
+glVertexAttribPointer no mueve datos, sino que define cómo la GPU debe interpretar esos datos.
+El layout(location = 0) del vertex shader recibe esa interpretación y la usa como entrada (aPos).
+Finalmente, glDrawArrays activa el pipeline gráfico donde la GPU ejecuta el shader usando esos datos.
+#### Justificación
+La evidencia demuestra que el arreglo de vértices no es consumido directamente por el shader, sino que existe una separación clara entre:
+
+CPU: define y mantiene el arreglo vertices[]
+GPU: almacena y procesa los datos mediante el VBO
+VAO + glVertexAttribPointer: actúan como el puente que conecta los datos con el shader
+
+Esto confirma el principio del pipeline de OpenGL:
+
+Los shaders no acceden a memoria del CPU, sino a buffers previamente configurados y enlazados mediante atributos.
+
+Además, el hecho de ver el arreglo en el debugger antes de la configuración del atributo demuestra la transición explícita de datos desde CPU hacia GPU, lo cual es esencial para entender el funcionamiento del pipeline gráfico.
 ## Bitácora de reflexión
