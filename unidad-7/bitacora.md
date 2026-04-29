@@ -198,14 +198,14 @@ Posteriormente:
 
 glBufferData transfiere ese arreglo desde la memoria del CPU hacia la GPU, almacenándolo en un VBO.
 glVertexAttribPointer no mueve datos, sino que define cómo la GPU debe interpretar esos datos.
-El layout(location = 0) del vertex shader recibe esa interpretación y la usa como entrada (aPos).
+El layout```(location = 0)``` del vertex shader recibe esa interpretación y la usa como entrada ```(aPos)```.
 Finalmente, glDrawArrays activa el pipeline gráfico donde la GPU ejecuta el shader usando esos datos.
 #### Justificación
 La evidencia demuestra que el arreglo de vértices no es consumido directamente por el shader, sino que existe una separación clara entre:
 
 CPU: define y mantiene el arreglo vertices[]
 GPU: almacena y procesa los datos mediante el VBO
-VAO + glVertexAttribPointer: actúan como el puente que conecta los datos con el shader
+```VAO + glVertexAttribPointer:``` actúan como el puente que conecta los datos con el shader
 
 Esto confirma el principio del pipeline de OpenGL:
 
@@ -220,14 +220,14 @@ Además, el hecho de ver el arreglo en el debugger antes de la configuración de
 En el render loop de la aplicación se obtienen continuamente las coordenadas del cursor con glfwGetCursorPos, las cuales se normalizan a valores entre 0 y 1 para ser utilizadas como entrada dinámica.
 
 Estos valores se envían al shader mediante el uniform:
-
+``` .c++
 glUniform4f(colorLocation, x, y, 0.0f, 1.0f);
-
+```
 Este uniform es recibido por el fragment shader como:
-
+```.c++
 uniform vec4 ourColor;
 FragColor = ourColor;
-
+```
 De esta manera, el color del triángulo cambia en tiempo real dependiendo de la posición del mouse, sin modificar los vértices ni el VBO.
 #### Justificación
 El uso de uniforms permite modificar el comportamiento visual del shader sin alterar la geometría almacenada en la GPU.
@@ -250,18 +250,18 @@ Además, el cambio visual en tiempo real confirma que los uniforms son variables
 Se realizó una prueba de borde modificando el valor del uniform offset, el cual controla la posición del triángulo en el vertex shader.
 
 En lugar de utilizar los valores normales calculados a partir del mouse:
-
+```.c++
 glUniform2f(offsetLocation, x * 2.0f - 1.0f, 1.0f - y * 2.0f);
-
+```
 Se forzaron valores extremos como:
-
+```.c++
 glUniform2f(offsetLocation, 5.0f, 5.0f);
-
+```
 El vertex shader aplica este valor directamente a la posición de los vértices:
-
+```.c++
 newPos.x += offset.x;
 newPos.y += offset.y;
-
+```
 Como resultado, todos los vértices del triángulo fueron desplazados fuera del rango visible del espacio de coordenadas normalizadas (NDC), por lo que el triángulo dejó de aparecer en pantalla.
 #### Justificación
 
