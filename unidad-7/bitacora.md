@@ -4,6 +4,12 @@
 
 
 ## Bitácora de aplicación 
+### Proyecto Final
+
+
+https://github.com/user-attachments/assets/b68abef2-2e45-42c9-964d-97a9922c5fe9
+
+
 ### Fase1 1
 triangle.cpp
 ```.c++
