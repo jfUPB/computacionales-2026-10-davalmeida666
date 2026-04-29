@@ -278,9 +278,33 @@ Esto permite concluir que:
 
 El control de la visibilidad depende exclusivamente de las transformaciones aplicadas, no de validaciones automáticas del sistema gráfico.
 #### Evidencia 5
+<img width="1039" height="470" alt="image" src="https://github.com/user-attachments/assets/147a7202-48cf-4fe7-a059-7507b5f08659" />
 
 #### Explicación
+En esta implementación se separan claramente las responsabilidades entre CPU y GPU.
 
+En el lado de la CPU (C++), se procesa la entrada del usuario mediante glfwGetCursorPos, se normalizan los valores del mouse y se envían al shader mediante uniforms como:
+
+glUniform2f(offsetLocation, x * 2.0f - 1.0f, 1.0f - y * 2.0f);
+
+y
+
+glUniform4f(colorLocation, x, y, 0.0f, 1.0f);
+
+En el lado de la GPU, el vertex shader aplica la transformación de posición y el fragment shader determina el color final del triángulo.
+
+De esta forma, la geometría permanece estática en el VBO, mientras que la posición y el color cambian dinámicamente mediante uniforms.
 #### Justificación
+Se decidió utilizar uniforms en lugar de modificar el VBO o usar atributos dinámicos porque:
 
+Los uniforms son eficientes para datos que cambian cada frame (como mouse o tiempo)
+No requieren reenvío constante de buffers a la GPU
+Mantienen la geometría (VBO) inmutable, lo que mejora rendimiento
+Permiten separar claramente datos estáticos (vértices) de datos dinámicos (transformaciones y color)
+
+Además, se delega el cálculo de transformación al vertex shader porque la GPU está optimizada para operaciones paralelas, lo que mejora el rendimiento general del pipeline.
+
+Esta estructura respeta el modelo de OpenGL donde:
+
+La CPU gestiona la lógica y la GPU ejecuta el renderizado.
 ## Bitácora de reflexión
