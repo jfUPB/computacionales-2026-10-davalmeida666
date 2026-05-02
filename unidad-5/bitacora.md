@@ -413,75 +413,113 @@ ofApp::~ofApp() {
 ```
 ### Fase 2: Fase 2 — Evidencias de comprensión con el depurador
 
-### Evidencia 1
+### Evidencia 1 — Herencia en memoria
 
 #### Breakpoint:
 
+Se colocó el breakpoint en la línea donde se llama particles[i]->update(dt) dentro del método update() de la aplicación. Este punto fue elegido porque permite inspeccionar objetos a través de un puntero de tipo base (Particle*), lo cual es ideal para observar cómo la herencia se representa en memoria cuando el objeto real pertenece a una clase derivada como ZigZagParticle o SpiralParticle.
+
 #### Captura:
+<img width="1107" height="469" alt="image" src="https://github.com/user-attachments/assets/5c78638b-4fbd-46c2-a3d7-7d178be8e019" />
+
 
 #### Explicación:
+En la captura del depurador se observa un elemento del vector particles, el cual es un puntero de tipo base Particle*. Al expandirlo, el depurador revela que el tipo real del objeto es ZigZagParticle, lo que evidencia el uso de polimorfismo.
+
+Dentro del objeto se pueden observar los atributos definidos en la clase derivada, como position, velocity, age, lifetime, amplitude y frequency. Estos campos corresponden específicamente a la implementación de SpiralParticle.
+
+Aunque la clase base Particle no define atributos propios, el hecho de que el objeto sea accesible a través de un puntero base demuestra que en memoria el objeto contiene tanto la estructura base como la derivada, organizadas de forma contigua según el modelo de herencia de C++.
 
 #### Justificación:
+Esta evidencia demuestra comprensión del concepto de herencia en memoria, ya que permite observar cómo un objeto de una clase derivada (SpiralParticle) es tratado como un objeto de su clase base (Particle) mediante un puntero.
 
-### Evidencia 2
+El depurador muestra que, aunque se accede al objeto a través de un tipo base, en memoria se conserva toda la estructura de la clase derivada, incluyendo sus atributos específicos. Esto confirma que en C++ los objetos derivados contienen la información de la clase base y extienden su estructura.
+
+Además, esta observación valida el uso de polimorfismo, ya que el método update() es invocado desde el tipo base pero ejecuta la implementación correspondiente al tipo real del objeto, lo que evidencia despacho dinámico en tiempo de ejecución.
+
+### Evidencia 2 — La _vtable de tu nuevo tipo
 
 #### Breakpoint:
 
+
 #### Captura:
+
 
 #### Explicación:
 
+
 #### Justificación:
 
-### Evidencia 3
+
+### Evidencia 3 — Polimorfismo en tiempo de ejecución
 
 #### Breakpoint:
 
+
 #### Captura:
+
 
 #### Explicación:
 
+
 #### Justificación:
 
-### Evidencia 4
+
+### Evidencia 4 — Encapsulamiento en el contexto de herencia
 
 #### Breakpoint:
 
+
 #### Captura:
+
 
 #### Explicación:
 
+
 #### Justificación:
 
-### Evidencia 5
+
+### Evidencia 5 — Ciclo de vida completo de tu partícula
 
 #### Breakpoint:
 
+
 #### Captura:
+
 
 #### Explicación:
 
+
 #### Justificación:
 
-### Evidencia 6
+
+### Evidencia 6 — Sin fugas de memoria
 
 #### Breakpoint:
 
+
 #### Captura:
+
 
 #### Explicación:
 
+
 #### Justificación:
 
-### Evidencia 7
+
+### Evidencia 7 — Prueba de condición límit
 
 #### Breakpoint:
 
+
 #### Captura:
+
 
 #### Explicación:
 
+
 #### Justificación:
+
 
 
 
