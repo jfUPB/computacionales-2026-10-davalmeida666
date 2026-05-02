@@ -485,62 +485,99 @@ Esta evidencia demuestra el funcionamiento del polimorfismo en tiempo de ejecuci
 Esto ocurre gracias al uso de la _vtable, la cual permite que en tiempo de ejecución se seleccione la implementación correcta del método según el tipo real del objeto. La transición observada en el depurador confirma que no se ejecuta una implementación genérica ni la de otra clase, sino la específica del tipo dinámico.
 
 De esta forma, se valida que el sistema de partículas utiliza correctamente el polimorfismo para permitir comportamientos distintos bajo una misma interfaz.
+
 ### Evidencia 4 — Encapsulamiento en el contexto de herencia
 
 #### Breakpoint:
 
+Se colocó el breakpoint en el método update() de la clase ZigZagParticle, accedido a través de un puntero de tipo base (Particle*). Este punto permite inspeccionar el objeto en ejecución y analizar cómo se organizan sus atributos dentro del contexto de herencia, observando específicamente qué miembros son propios de la clase derivada y cómo se representa el encapsulamiento en el depurador.
 
 #### Captura:
+<img width="1076" height="199" alt="image" src="https://github.com/user-attachments/assets/9590b79f-f75c-44d4-9be8-fcd418755454" />
 
 
 #### Explicación:
+En la captura del depurador se observa el objeto ZigZagParticle inspeccionado a través del puntero this. Dentro de su estructura se pueden identificar claramente los atributos definidos en la clase derivada, como position, velocity, color, age, lifetime, amplitude y frequency.
 
+Estos campos representan el estado interno propio del objeto y son los únicos accesibles directamente dentro de la subclase. Además, se observa la presencia de la estructura interna asociada a la clase base Particle, representada indirectamente a través del puntero virtual (_vptr), que permite el funcionamiento del polimorfismo.
+
+El depurador muestra que, aunque el objeto contiene toda su estructura en memoria, el acceso a los miembros sigue estando restringido por el nivel de encapsulamiento definido en el código, respetando las reglas de acceso de C++.
 
 #### Justificación:
+Esta evidencia demuestra comprensión del encapsulamiento dentro de una jerarquía de herencia en C++. El objeto ZigZagParticle contiene múltiples atributos propios que representan su comportamiento, los cuales son visibles en el depurador cuando se inspecciona a través de this.
 
+Sin embargo, el acceso a estos datos sigue estando controlado por los modificadores de acceso del lenguaje. Los atributos privados permanecen encapsulados dentro de la clase, mientras que los miembros heredados mantienen su nivel de visibilidad según la definición de la clase base.
+
+Esto demuestra que, aunque el depurador permite visualizar la estructura completa del objeto en memoria, el encapsulamiento sigue siendo respetado en tiempo de ejecución y en el diseño del programa.
 
 ### Evidencia 5 — Ciclo de vida completo de tu partícula
 
 #### Breakpoint:
 
-
+Se utilizaron tres puntos de inspección en el depurador para observar el ciclo de vida completo de un objeto ZigZagParticle. El primero en el momento de su creación al ser insertado en el vector particles, el segundo durante su actualización en el método update(), y el tercero en el momento de su eliminación del vector y liberación de memoria. Esta selección permite analizar el comportamiento completo del objeto desde su creación hasta su destrucción.
 #### Captura:
+<img width="857" height="238" alt="image" src="https://github.com/user-attachments/assets/3e26c16e-2bbc-4902-a38a-8087e095a07d" />
+<img width="1090" height="398" alt="image" src="https://github.com/user-attachments/assets/c2815124-25a8-42e3-9f92-9a70203c0187" />
 
 
 #### Explicación:
+En la primera etapa se observa la creación de una instancia de ZigZagParticle, la cual es añadida al vector particles mediante asignación dinámica. En este punto, el objeto es creado en memoria heap y su dirección es almacenada en el contenedor.
 
+Durante la segunda etapa, el objeto es actualizado en cada frame mediante el método update(), donde sus atributos como position, velocity y age cambian progresivamente. Esto representa la fase activa del ciclo de vida del objeto.
+
+Finalmente, en la tercera etapa, se evalúa si la partícula ha alcanzado su condición de eliminación. Cuando esto ocurre, el objeto es eliminado explícitamente con delete y posteriormente removido del vector mediante erase, liberando así la memoria asociada.
 
 #### Justificación:
 
+Esta evidencia demuestra comprensión del ciclo de vida completo de un objeto dinámico en C++. Se observa cómo una instancia de ZigZagParticle es creada en memoria dinámica, almacenada dentro de un contenedor, actualizada durante múltiples iteraciones del programa y finalmente eliminada cuando cumple su condición de vida útil.
+
+El uso del depurador permite visualizar claramente cada fase del ciclo: creación (asignación en heap), uso (actualización de atributos en tiempo de ejecución) y destrucción (liberación de memoria). Esto evidencia el manejo correcto de memoria dinámica y la relación entre objetos y su gestión dentro de un sistema basado en punteros.
+
+Además, se confirma que el programa evita acumulación de memoria al eliminar correctamente los objetos que ya no son necesarios.
 
 ### Evidencia 6 — Sin fugas de memoria
 
 #### Breakpoint:
 
-
+Se colocó el breakpoint en el bloque donde se elimina una partícula del vector particles, específicamente en las instrucciones delete particles[i] y particles.erase(...). Este punto permite observar directamente cómo se libera la memoria dinámica asociada al objeto y cómo el puntero es removido del contenedor, asegurando que no queden referencias inválidas.
 #### Captura:
 
+<img width="1113" height="423" alt="image" src="https://github.com/user-attachments/assets/2ba5b169-b4db-4fb2-a7c7-f04022e0598f" />
 
 #### Explicación:
 
-
+Se colocó el breakpoint en el bloque donde se elimina una partícula del vector particles, específicamente en las instrucciones delete particles[i] y particles.erase(...). Este punto permite observar directamente cómo se libera la memoria dinámica asociada al objeto y cómo el puntero es removido del contenedor, asegurando que no queden referencias inválidas.
 #### Justificación:
+Esta evidencia demuestra comprensión del manejo de memoria dinámica en C++ y del correcto ciclo de liberación de objetos. El uso combinado de delete y erase asegura que primero se libere la memoria asignada en el heap y luego se elimine la referencia dentro del vector.
 
+El delete destruye físicamente el objeto en memoria, mientras que erase elimina el puntero del contenedor, evitando accesos a memoria inválida (dangling pointers).
+
+La verificación en el depurador permite observar que el tamaño del vector disminuye y que el objeto deja de existir en la estructura de datos, confirmando que no hay fugas de memoria en el sistema.
 
 ### Evidencia 7 — Prueba de condición límit
 
 #### Breakpoint:
 
-
+Se diseñó un escenario de prueba deliberado en el cual se presiona la tecla de espacio para generar una creación masiva de partículas (1000 instancias simultáneas). Este caso extremo permite evaluar el comportamiento del sistema bajo carga elevada, especialmente el crecimiento del vector particles, la ejecución de múltiples explosiones y la correcta gestión de memoria en condiciones de alta demanda.
 #### Captura:
+<img width="1086" height="405" alt="image" src="https://github.com/user-attachments/assets/86d18516-0e7c-44a7-93fc-44a79e42f47b" />
+<img width="895" height="517" alt="image" src="https://github.com/user-attachments/assets/4907dd76-74ca-4c72-82ce-675e303cb82f" />
 
 
 #### Explicación:
+En la captura del depurador se observa el sistema en una condición de carga extrema, donde se han generado cientos de instancias de partículas simultáneamente mediante la creación masiva activada por el usuario.
 
+El vector particles crece rápidamente debido a la inserción de múltiples objetos dinámicos, lo que provoca un aumento significativo en la cantidad de actualizaciones y verificaciones en cada frame.
+
+Durante esta ejecución, se puede observar cómo cada partícula sigue su ciclo de vida completo (creación, actualización y eventual eliminación), incluso bajo condiciones de alta carga, lo que permite evaluar la estabilidad del sistema.
 
 #### Justificación:
 
+Esta evidencia demuestra la capacidad del sistema para manejar condiciones límite relacionadas con la creación masiva de objetos dinámicos. Al generar un número elevado de partículas en un corto periodo de tiempo, se pone a prueba tanto la eficiencia del manejo del vector como la correcta liberación de memoria.
 
+El análisis en el depurador permite verificar que, a pesar de la alta carga, el sistema continúa ejecutando el ciclo de vida de las partículas de forma coherente, eliminando correctamente los objetos cuando cumplen sus condiciones de destrucción.
+
+Esto confirma que la implementación es robusta frente a escenarios extremos y que el manejo de memoria dinámica evita acumulaciones permanentes que podrían afectar el rendimiento.
 
 
 
