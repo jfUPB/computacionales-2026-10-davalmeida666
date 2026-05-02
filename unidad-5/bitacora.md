@@ -411,5 +411,79 @@ ofApp::~ofApp() {
     particles.clear();
 }
 ```
+### Fase 2: Fase 2 — Evidencias de comprensión con el depurador
+
+### Evidencia 1
+
+#### Breakpoint:
+
+#### Captura:
+
+#### Explicación:
+
+#### Justificación:
+
+### Evidencia 2
+
+#### Breakpoint:
+
+#### Captura:
+
+#### Explicación:
+
+#### Justificación:
+
+### Evidencia 3
+
+#### Breakpoint:
+
+#### Captura:
+
+#### Explicación:
+
+#### Justificación:
+
+### Evidencia 4
+
+#### Breakpoint:
+
+#### Captura:
+
+#### Explicación:
+
+#### Justificación:
+
+### Evidencia 5
+
+#### Breakpoint:
+
+#### Captura:
+
+#### Explicación:
+
+#### Justificación:
+
+### Evidencia 6
+
+#### Breakpoint:
+
+#### Captura:
+
+#### Explicación:
+
+#### Justificación:
+
+### Evidencia 7
+
+#### Breakpoint:
+
+#### Captura:
+
+#### Explicación:
+
+#### Justificación:
+
+
+
 
 ## Bitácora de reflexión
