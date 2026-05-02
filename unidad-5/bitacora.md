@@ -440,31 +440,51 @@ Además, esta observación valida el uso de polimorfismo, ya que el método upda
 ### Evidencia 2 — La _vtable de tu nuevo tipo
 
 #### Breakpoint:
-
+Se colocó el breakpoint en la llamada a particles[i]->update(dt) dentro del método update(), ya que en este punto se trabaja con un puntero de tipo base (Particle*) que puede referenciar distintos tipos reales de objetos. Esto permite comparar la _vtable de dos clases derivadas (SpiralParticle y RisingParticle) y analizar cómo sus implementaciones afectan la tabla de funciones virtuales
 
 #### Captura:
+<img width="1054" height="207" alt="image" src="https://github.com/user-attachments/assets/83fe3f95-3488-41de-887a-80197fc76995" />
+<img width="891" height="205" alt="image" src="https://github.com/user-attachments/assets/7803250e-14fb-4ece-9e25-d7d3e937c0c9" />
+
 
 
 #### Explicación:
+En la captura del depurador se observa el puntero _vptr de dos objetos distintos: uno de tipo SpiralParticle y otro de tipo RisingParticle. Este puntero referencia la _vtable de cada objeto, la cual contiene las direcciones de las funciones virtuales que se ejecutarán en tiempo de ejecución.
 
+Ambos objetos heredan directamente de la clase base Particle, por lo que sus _vtable contienen las mismas entradas en términos de métodos (update(), draw(), isDead() y shouldExplode()). Sin embargo, las direcciones a las que apuntan estas entradas son diferentes, ya que cada clase proporciona su propia implementación de estos métodos.
+
+Por ejemplo, aunque ambos objetos tienen una entrada para update(), en un caso apunta a la implementación de SpiralParticle y en el otro a la de RisingParticle, lo que refleja comportamientos completamente distintos en ejecución.
 
 #### Justificación:
+Esta evidencia demuestra comprensión del funcionamiento del polimorfismo en C++ a nivel de la _vtable, ya que se observa que, aunque los objetos comparten la misma interfaz definida por la clase base Particle, cada uno posee su propia tabla de funciones virtuales.
 
+La comparación evidencia que la estructura de la _vtable es similar en ambos casos debido a que comparten la misma clase base, pero las implementaciones asociadas a cada entrada son diferentes. Esto confirma que el despacho dinámico permite que una llamada a un método como update() o draw() a través de un puntero de tipo base ejecute la versión correspondiente al tipo real del objeto en tiempo de ejecución.
+
+De esta forma, se valida que el polimorfismo no depende únicamente de la existencia de métodos virtuales, sino de la asociación entre el objeto y su _vtable específica.
 
 ### Evidencia 3 — Polimorfismo en tiempo de ejecución
 
 #### Breakpoint:
 
-
+Se colocaron dos breakpoints: uno en la llamada particles[i]->update(dt) dentro del método update() de la aplicación, y otro dentro del método update() de la clase SpiralParticle. Esta elección permite verificar si, al invocar el método a través de un puntero de tipo base (Particle*), el flujo de ejecución entra en la implementación correcta correspondiente al tipo real del objeto.
 #### Captura:
 
+<img width="1096" height="290" alt="image" src="https://github.com/user-attachments/assets/37aec924-cec7-49f8-a835-b16100617802" />
+<img width="1083" height="309" alt="image" src="https://github.com/user-attachments/assets/12a88aeb-252f-4592-8197-6cc49c27ed7c" />
 
 #### Explicación:
 
+En la captura se observa que el programa se detiene inicialmente en la llamada particles[i]->update(dt), donde particles[i] es un puntero de tipo base Particle*. Al avanzar paso a paso (Step Into), el flujo de ejecución entra en el método update() de la clase SpiralParticle.
 
+Esto indica que, aunque la llamada se realiza desde un puntero de tipo base, el sistema identifica correctamente el tipo real del objeto en tiempo de ejecución y ejecuta la implementación correspondiente.
+
+Además, se puede observar en el depurador que el objeto inspeccionado es de tipo SpiralParticle, lo que confirma la coherencia entre el tipo dinámico del objeto y el método ejecutado.
 #### Justificación:
+Esta evidencia demuestra el funcionamiento del polimorfismo en tiempo de ejecución en C++, específicamente el despacho dinámico de métodos virtuales. A pesar de que el método update() es invocado a través de un puntero de tipo base (Particle*), el programa ejecuta la versión definida en la clase derivada (SpiralParticle).
 
+Esto ocurre gracias al uso de la _vtable, la cual permite que en tiempo de ejecución se seleccione la implementación correcta del método según el tipo real del objeto. La transición observada en el depurador confirma que no se ejecuta una implementación genérica ni la de otra clase, sino la específica del tipo dinámico.
 
+De esta forma, se valida que el sistema de partículas utiliza correctamente el polimorfismo para permitir comportamientos distintos bajo una misma interfaz.
 ### Evidencia 4 — Encapsulamiento en el contexto de herencia
 
 #### Breakpoint:
